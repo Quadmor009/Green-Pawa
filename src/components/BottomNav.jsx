@@ -91,7 +91,7 @@ export default function BottomNav() {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-around',
-      padding: '20px 0 32px 0',
+      padding: '12px 0 env(safe-area-inset-bottom, 8px) 0',
     }}>
       {tabs.map((tab) => {
         const isActive = location.pathname === tab.path;
