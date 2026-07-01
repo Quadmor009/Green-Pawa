@@ -75,11 +75,11 @@ export default function TopUp() {
         {/* Amount grid */}
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
           {presets.map((p) => {
-            const isSelected = selectedAmount === p.amount && !customAmount;
+            const isSelected = selectedAmount === p.amount;
             return (
               <button
                 key={p.amount}
-                onClick={() => { setSelectedAmount(p.amount); setCustomAmount(''); }}
+                onClick={() => { setSelectedAmount(p.amount); setCustomAmount(String(p.amount)); }}
                 style={{
                   flexBasis: 'calc(50% - 6px)',
                   borderRadius: 16,
@@ -196,8 +196,17 @@ export default function TopUp() {
   if (step === 2) {
     return (
       <div className="page-content" style={{ paddingLeft: 24, paddingRight: 24, paddingBottom: 32, display: 'flex', flexDirection: 'column', gap: 24 }}>
-        {/* Header */}
-        <div style={{ padding: '12px 0 0' }}>
+        {/* Header with back button */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 0 0' }}>
+          <button
+            onClick={() => setStep(1)}
+            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 4, display: 'flex', alignItems: 'center' }}
+            aria-label="Go back"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1A1814" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
           <span style={{ fontSize: 24, fontWeight: 600, color: '#1A1814', letterSpacing: '-0.01em' }}>Top Up</span>
         </div>
 

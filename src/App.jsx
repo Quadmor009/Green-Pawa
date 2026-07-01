@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Home from './pages/Home';
 import TopUp from './pages/TopUp';
@@ -62,18 +62,29 @@ export default function App() {
   return (
     <BrowserRouter>
       <PowerProvider>
-        {isDesktop && <StatusBar />}
-        <div className="page-scroll">
-          <Routes>
-            <Route path="/" element={<Navigate to="/home" />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/topup" element={<TopUp />} />
-            <Route path="/usage" element={<Usage />} />
-            <Route path="/account" element={<Account />} />
-          </Routes>
-        </div>
-        <BottomNav />
+        <AppShell isDesktop={isDesktop} />
       </PowerProvider>
     </BrowserRouter>
+  );
+}
+
+function AppShell({ isDesktop }) {
+  const location = useLocation();
+  const hideNav = location.pathname === '/topup';
+
+  return (
+    <>
+      {isDesktop && <StatusBar />}
+      <div className="page-scroll">
+        <Routes>
+          <Route path="/" element={<Navigate to="/home" />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/topup" element={<TopUp />} />
+          <Route path="/usage" element={<Usage />} />
+          <Route path="/account" element={<Account />} />
+        </Routes>
+      </div>
+      {!hideNav && <BottomNav />}
+    </>
   );
 }
