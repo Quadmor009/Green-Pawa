@@ -1,0 +1,213 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* Background */
+  --bg:               #F7F5F2;
+  --surface:          #FFFFFF;
+  --surface-muted:    #EDE9E3;
+
+  /* Border */
+  --border:           #E2DED7;
+
+  /* Text */
+  --text-primary:     #1A1814;
+  --text-secondary:   #6B6860;
+  --text-muted:       #A09890;
+
+  /* Primary — Indigo */
+  --indigo:           #5258ED;
+  --indigo-light:     #EEEFFE;
+  --indigo-dark:      #4248D4;
+
+  /* Semantic — Green (power active) */
+  --green:            #067034;
+  --green-light:      #E8F5EE;
+
+  /* Semantic — Red (disconnected / warning) */
+  --red:              #B50027;
+  --red-light:        #FCEEF1;
+
+  /* Semantic — Amber (gauge mid-state) */
+  --amber:            #D97706;
+  --amber-light:      #FEF3C7;
+
+  /* Shadows — removed globally, borders used instead */
+  --shadow-card:      none;
+  --shadow-elevated:  none;
+
+  /* Nav */
+  --nav-height:       auto;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* App shell — mobile first, flex column so nav sticks to bottom */
+#root {
+  max-width: 390px;
+  margin: 0 auto;
+  min-height: 100vh;
+  position: relative;
+  background: var(--bg);
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Page content fills available space above the nav */
+.page-scroll {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Page content clears the bottom nav */
+.page-content {
+  padding-bottom: 16px;
+  padding-top: 8px;
+}
+
+/* Bottom nav — sticky to frame bottom */
+.bottom-nav {
+  flex-shrink: 0;
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+/* ========== Desktop: iPhone frame ========== */
+@media (min-width: 481px) {
+  body {
+    background: #0D0D0D;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 24px 0;
+  }
+
+  /* iPhone outer shell — wraps #root */
+  .iphone-frame {
+    position: relative;
+    width: 410px;
+    height: 864px;
+    background: #1C1C1E;
+    border-radius: 54px;
+    padding: 10px;
+    box-shadow:
+      /* Outer highlight edge */
+      inset 0 0 0 1px rgba(255,255,255,0.08),
+      /* Steel band */
+      0 0 0 2px #3A3A3C,
+      /* Drop shadow */
+      0 40px 100px rgba(0, 0, 0, 0.8),
+      0 10px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Side buttons — left: silent switch + volume */
+  .iphone-frame::before {
+    content: '';
+    position: absolute;
+    left: -3px;
+    top: 120px;
+    width: 3px;
+    height: 28px;
+    background: #3A3A3C;
+    border-radius: 2px 0 0 2px;
+    box-shadow:
+      /* Volume up */
+      0 44px 0 0 #3A3A3C,
+      /* Volume down */
+      0 84px 0 0 #3A3A3C;
+  }
+
+  /* Side button — right: power */
+  .iphone-frame::after {
+    content: '';
+    position: absolute;
+    right: -3px;
+    top: 180px;
+    width: 3px;
+    height: 72px;
+    background: #3A3A3C;
+    border-radius: 0 2px 2px 0;
+  }
+
+  #root {
+    width: 390px;
+    height: 844px;
+    max-width: 390px;
+    min-height: unset;
+    border-radius: 44px;
+    overflow: hidden;
+    position: relative;
+    background: var(--bg);
+  }
+
+  .page-content {
+    padding-top: 12px;
+  }
+
+  /* Dynamic Island pill */
+  #root::before {
+    content: '';
+    position: sticky;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+    width: 100px;
+    height: 28px;
+    background: #000;
+    border-radius: 16px;
+    z-index: 1000;
+    margin-bottom: -28px;
+    pointer-events: none;
+  }
+
+  /* Home indicator bar */
+  #root::after {
+    content: '';
+    position: sticky;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+    width: 134px;
+    height: 5px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 100px;
+    z-index: 1000;
+    margin-top: -13px;
+    pointer-events: none;
+  }
+}
+
+/* ========== Mobile: full screen, no frame ========== */
+@media (max-width: 480px) {
+  body {
+    background: var(--bg);
+    padding: 0;
+  }
+
+  #root {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    border-radius: 0;
+    box-shadow: none;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
