@@ -70,8 +70,6 @@ export default function App() {
 
 function AppShell({ isDesktop }) {
   const location = useLocation();
-  const hideNav = location.pathname === '/topup';
-
   return (
     <>
       {isDesktop && <StatusBar />}
@@ -84,7 +82,7 @@ function AppShell({ isDesktop }) {
           <Route path="/account" element={<Account />} />
         </Routes>
       </div>
-      {!hideNav && <BottomNav />}
+      <BottomNav />
     </>
   );
 }
